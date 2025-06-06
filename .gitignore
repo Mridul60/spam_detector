@@ -19,3 +19,5 @@ env/
 # MacOS/Windows metadata
 .DS_Store
 Thumbs.db
+
+node_modules/
