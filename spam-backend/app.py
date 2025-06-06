@@ -1,5 +1,8 @@
+from flask import Flask,request,jsonify
 import joblib
 from preprocess import clean_text  
+
+app = Flask(__name__)
 
 #load trained model
 model = joblib.load("spam_model.pkl")
@@ -25,19 +28,16 @@ vectorizer = joblib.load("vectorizer.pkl")
 
 #----------------------------------------------------
 
-
-def predict_message(text: str):
-    cleaned = clean_text(text)  
+@app.route('/predict',methods=['POST'])
+def predict_message():
+    data = request.get_json()
+    message = data.get("message","")
+    cleaned = clean_text(message)  
     X = vectorizer.transform([cleaned])
-    pred = model.predict(X)[0]
-    return 'spam' if pred == 1 else 'ham'
+    prediction = model.predict(X)[0]
+    return jsonify({
+        "prediction":"spam" if prediction == 1 else "ham"
+    })
 
 if __name__ == "__main__":
-    while True:
-        msg = input("Enter message ('exit' to quit) : ")
-        label = predict_message(msg)
-        color = "\033[91m" if label == "spam" else "\033[92m"  # red for spam, green for ham
-        reset = "\033[0m"
-        if msg.lower() in ('exit','quit'):
-            break
-        print(f"{color}[{label.upper()}]{reset} {msg}\n")
+    app.run(debug=True)
