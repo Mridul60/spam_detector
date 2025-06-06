@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer 
 
 #dowmnload stopwords
-nltk.download('stopwords')
+nltk.download('stopwords',quiet = True)
 from nltk.corpus import stopwords
 import string
 
@@ -23,8 +23,8 @@ def clean_text(text):
 #Apply Cleaning
 df['cleaned'] = df['message'].apply(clean_text)
 
-print("Sample cleaned messages.")
-print(df[['message', 'cleaned']].head())
+# print("Sample cleaned messages.")
+# print(df[['message', 'cleaned']].head())
 
 #Vectorize (convert text into numbers)
 vectorizer = CountVectorizer()
@@ -36,8 +36,8 @@ y = df['label'].map({'ham':0, 'spam': 1})
 #split into trainng and testing sets
 X_train , 	X_test , y_train ,y_test = train_test_split(X,y,test_size=0.2,random_state=42)
 
-print(f"\nTraining samples: {X_train.shape[0]}")
-print(f"Testing samples : {X_test.shape[0]}")
+# print(f"\nTraining samples: {X_train.shape[0]}")
+# print(f"Testing samples : {X_test.shape[0]}")
 
 
 
