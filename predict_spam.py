@@ -1,9 +1,8 @@
 import joblib
-import pandas as pd
-from preprocess import vectorizer
 
 #load trained model
 model = joblib.load("spam_model.pkl")
+vectorizer = joblib.load("vectorizer.pkl")
 
 def predict_message(text: str):
     #preprocess the input 

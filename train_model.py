@@ -1,5 +1,5 @@
 import joblib
-from preprocess import X_train,X_test,y_train,y_test
+from preprocess import X_train,X_test,y_train,y_test,vectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score
 
@@ -15,3 +15,4 @@ print(f"\nAccuracy: {accuracy_score(y_test,y_pred):.4f}")
 
 #Save model 
 joblib.dump(model,"spam_model.pkl")
+joblib.dump(vectorizer,"vectorizer.pkl")
