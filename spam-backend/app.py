@@ -1,8 +1,36 @@
 from flask import Flask,request,jsonify
+from flask_cors import CORS
 import joblib
 from preprocess import clean_text  
 
 app = Flask(__name__)
+CORS(app)
+
+@app.route('/ping', methods=['GET'])
+def ping():
+    return jsonify({"message": "pong"})
+
+@app.route('/data', methods=['POST'])
+def handle_data():
+    try:
+        data = request.get_json()
+        print("Received data:", data)
+        return jsonify({"status": "success", "received": data})
+    except Exception as e:
+        print("Error:", str(e))
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+    @app.route('/data', methods=['POST'])
+    def handle_data():
+        try:
+            data = request.get_json()
+            print("Received data:", data)
+            return jsonify({"status": "success", "received": data})
+        except Exception as e:
+            print("Error:", str(e))
+            traceback.print_exc()
+            return jsonify({"error": str(e)}), 500
 
 #load trained model
 model = joblib.load("spam_model.pkl")
@@ -40,4 +68,4 @@ def predict():
     })
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,port=5000)

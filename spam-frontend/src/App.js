@@ -11,8 +11,8 @@ function App() {
   const handlePredict = async()=>{
     setLoading(true);
     try{
-      const res = await axios.post('https://localhost:5000/predict',{
-        message: message
+      const res = await axios.post('http://localhost:5000/predict',{
+        message
       });
       setResult(res.data.prediction);
     }catch(err){
