@@ -29,7 +29,7 @@ vectorizer = joblib.load("vectorizer.pkl")
 #----------------------------------------------------
 
 @app.route('/predict',methods=['POST'])
-def predict_message():
+def predict():
     data = request.get_json()
     message = data.get("message","")
     cleaned = clean_text(message)  
