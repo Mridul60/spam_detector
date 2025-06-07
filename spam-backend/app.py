@@ -21,16 +21,6 @@ def handle_data():
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 
-    @app.route('/data', methods=['POST'])
-    def handle_data():
-        try:
-            data = request.get_json()
-            print("Received data:", data)
-            return jsonify({"status": "success", "received": data})
-        except Exception as e:
-            print("Error:", str(e))
-            traceback.print_exc()
-            return jsonify({"error": str(e)}), 500
 
 #load trained model
 model = joblib.load("spam_model.pkl")
@@ -68,4 +58,6 @@ def predict():
     })
 
 if __name__ == "__main__":
-    app.run(debug=True,port=5000)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host="0.0.0.0", port=port)
