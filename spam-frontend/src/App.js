@@ -1,25 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import axios from 'axios'
 import './App.css';
+
+const API_BASE = process.env.REACT_APP_API_BASE|| 'http://localhost:5000';
 
 function App() {
   const [message, setMessage] = useState('');
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handlePredict = async() => {
-    setLoading(true);
-    try {
-      const res = await axios.post('http://localhost:5000/predict', {
-        message: message
-      });
-      setResult(res.data.prediction);
-    } catch(err) {
-      setResult("Error connecting to backend");
-    } finally {
-      setLoading(false)
-    }
-  };
+  // Ping the backend to check if it's running
+   useEffect(() => {
+    fetch(`${API_BASE}/ping`)
+      .then(res => res.json())
+      .then(data => console.log("Ping:", data.message))
+      .catch(err => console.error("Ping failed:", err));
+  }, []);
+
+  // Handle message prediction
+  const handlePredict = async () => {
+  setLoading(true);
+  try {
+    const res = await axios.post(`${API_BASE}/predict`, {
+      message: message
+    });
+    setResult(res.data.prediction);
+  } catch (err) {
+    setResult("Error connecting to backend");
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const clearMessage = () => {
     setMessage('');
