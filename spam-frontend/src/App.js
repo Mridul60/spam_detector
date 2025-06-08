@@ -9,13 +9,7 @@ function App() {
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Ping the backend to check if it's running
-   useEffect(() => {
-    fetch(`${API_BASE}/ping`)
-      .then(res => res.json())
-      .then(data => console.log("Ping:", data.message))
-      .catch(err => console.error("Ping failed:", err));
-  }, []);
+  
 
   // Handle message prediction
   const handlePredict = async () => {
@@ -37,6 +31,13 @@ function App() {
     setMessage('');
     setResult('');
   };
+  // Ping the backend to check if it's running
+   useEffect(() => {
+    fetch(`${API_BASE}/ping`)
+      .then(res => res.json())
+      .then(data => console.log("Ping:", data.message))
+      .catch(err => console.error("Ping failed:", err));
+  }, []);
 
   return (
     <div className="app">
