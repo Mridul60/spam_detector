@@ -11,6 +11,7 @@ A Machine Learning web app to detect whether a message is **Spam** or **Not Spam
 **🔗 Backend API (Render):** [https://spam-detector-backend-fu39.onrender.com](https://spam-detector-backend-fu39.onrender.com)
    [Due to service being deployed in free version , backend is expected to have 50 sec delay]
 
+
 ---
 
 ## 🧠 Model Overview
@@ -134,6 +135,27 @@ POST /predict
 {
   "prediction": "spam"
 }
+```
+
+---
+### Sample Messages for Testing
+
+#### Spam Messages
+```
+"Congratulations! You've won $1000! Click here to claim your prize now!"
+"URGENT: Your account will be suspended. Call 555-0123 immediately!"
+"FREE! Win a brand new iPhone! Text STOP to opt out."
+"You have been selected for a cash prize of $5000. Reply YES to claim."
+"Limited time offer! Get rich quick with our investment scheme!"
+```
+
+#### Ham (Not Spam) Messages
+```
+"Hey, are we still meeting for lunch tomorrow at 12?"
+"Don't forget to pick up milk on your way home."
+"Happy birthday! Hope you have a wonderful day!"
+"The meeting has been rescheduled to 3 PM today."
+"Thanks for helping me with the project. Really appreciate it!"
 ```
 ---
 
