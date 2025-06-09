@@ -134,7 +134,7 @@ POST /predict
 {
   "prediction": "spam"
 }
-
+```
 ---
 
 ## 📚 Future Improvements
